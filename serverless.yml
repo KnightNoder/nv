@@ -1,0 +1,18 @@
+service: referral-api
+plugins:
+  - serverless-dotenv-plugin
+provider:
+ name: aws
+ runtime: nodejs12.x
+ memorySize: 128
+ timeout: 30
+ stage: ${opt:stage, 'staging'}
+ region: ap-south-1
+
+functions:
+ api:
+   handler: lambda.universal
+   events:
+     - http: ANY {proxy+}
+     - http: ANY /
+
